@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension ns="http://www.inkscape.org/namespace/inkscape/extension">
+  <_name>Scale Generator</_name>
+  <id>org.inkscape.render.scale</id>
+  <dependency type="executable" location="extensions">inkex.py</dependency>
+  <dependency type="executable" location="extensions">render_scale.py</dependency>
+  <param name="tab" type="notebook">
+	<page name="global" _gui-text="Global Options">
+	  <param name="desc_global" type="description">Generates scales</param>
+	  <param name="desc_global" type="description">*********************************</param>
+	  <param name="desc_global" type="description">Global parameters</param>
+	  <param name="scalefrom" type="int" _gui-text="Scale from:" min="-32000" max="32000">0.0</param>
+	  <param name="scaleto" type="int" _gui-text="Scale to:" min="-32000" max="32000">40.0</param>
+	  <param name="reverse" type="boolean" _gui-text="Reverse order:">false</param>
+	  <param name="type" type="optiongroup" _gui-text="Type">
+  		<_option value="line">Line</_option>
+	        <_option value="rad">Circular</_option>
+	  </param>
+	  <param name="scaleheight" type="float" _gui-text="Scale Height (unit):" min="1" max="32000">5.0</param>
+	</page>
+	<page name="line" _gui-text="Line">
+	  <param name="desc_unit" type="description">Line specific</param>
+	  <param name="rotate" type="enum" _gui-text="Rotate:">
+		<item value="0">0°</item>
+		<item value="90">90°</item>
+	  </param>
+	  <param name="desc_unit" type="description">Use the unit pixel with your resolution for custom units</param>
+	  <param name="scaleres" type="float" _gui-text="Scale resolution (units per marker):" min="0.00001" max="99999.9000">1.00000</param>
+	</page>
+	<page name="rad" _gui-text="Circular">
+	  <param name="desc_unit" type="description">Circular specific</param>
+	  <param name="scalerad" type="float" _gui-text="Radius (units):" min="0.000000001" max="32000">50.0</param>
+	  <param name="desc_unit" type="description">in degree, 0 deg is bottom, positive values are counterclockwise</param>
+	  <param name="scaleradbegin" type="float" _gui-text="Start (deg):" min="-360.0" max="360.0">240</param>
+	  <param name="scaleradcount" type="float" _gui-text="Count (deg):" min="-360.0" max="360.0">-120</param>
+	  <param name="desc_unit" type="description">it's hard to position the label afterwards. So use this:</param>
+	  <param name="labeldist" type="float" _gui-text="Label offset (unit):" min="-9999.9" max="9999.9">-4.8</param>
+	  <param name="radmark" type="boolean" _gui-text="Mark the origin?">true</param>
+  	  <param name="insidetf" type="boolean" _gui-text="inside scale?">true</param>
+  	  <param name="isdangle" type="boolean" _gui-text="dangling labels?">false</param>
+	</page>
+	<page name="unitopt" _gui-text="Unit">
+	  <param name="desc_unit" type="description">Units</param>
+	  <param name="desc_unit" type="description">Baseunit is pixel (1mm = 3.5433070866px)</param>
+	  <param name="unit" type="optiongroup" _gui-text="Unit">
+		<_option value="mm">mm</_option>
+		<_option value="cm">cm</_option>
+		<_option value="in">inch</_option>
+		<_option value="px">pixel</_option>
+		<_option value="pt">point</_option>
+	  </param>
+	</page>
+	<page name="labelopt" _gui-text="Label">
+	  <param name="desc_labels" type="description">Labels</param>
+	  <param name="fontsize" type="int" _gui-text="Fontsize (pixel):" min="1" max="32000">10</param>
+	  <param name="desc_global" type="description">Suffix currently doesn't support several special characters</param>
+	  <param name="suffix" type="string" _gui-text="Label suffix:">mV</param>
+	</page>
+	<page name="markopt" _gui-text="Marker">
+	  <param name="desc_markers" type="description">Markers</param>
+	  <param name="mark0" type="int" _gui-text="Div of labeled marker :" min="1" max="32000">10</param>
+	  <param name="mark1" type="int" _gui-text="Div of bold marker:" min="1" max="32000">5</param>
+	  <param name="mark2" type="int" _gui-text="Div of default marker:" min="1" max="32000">1</param>
+	  <param name="desc_unit" type="description">Marker width in relation to labeled marker</param>
+	  <param name="mark1wid" type="int" _gui-text="Width of bold marker (%):" min="0" max="200">85</param>
+	  <param name="mark2wid" type="int" _gui-text="Width of default marker (%):" min="0" max="200">60</param>
+	</page>
+  </param>
+
+  <effect>
+    <object-type>all</object-type>
+    <effects-menu>
+      <submenu _name="Render"/>
+    </effects-menu>
+  </effect>
+  <script>
+    <command reldir="extensions" interpreter="python">render_scale.py</command>
+  </script>
+</inkscape-extension>
