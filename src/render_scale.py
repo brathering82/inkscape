@@ -143,6 +143,8 @@ class ScaleGen(inkex.Effect):
 			help = '')                            
 
 	def addLabel(self, i, x, y, grp, fontsize, phi = 0.0):
+		x = float(x)
+		y = float(y)
 		res = self.options.scaleres
 		pos = i*res + fontsize/2
 		suffix = self.options.suffix.decode('utf-8') # fix ° (degree char)
@@ -156,9 +158,7 @@ class ScaleGen(inkex.Effect):
 		a3 = str(sinphi)
 		a4 = str(cosphi)
 		a5 = str((1-cosphi)*x-sinphi*y)
-		#a5=0
 		a6 = str(sinphi*x+(1-cosphi)*y)
-		#a6=0
 		fs = str(fontsize)
 		style = {'text-align' : 'center', 'text-anchor': 'middle', 'font-size': fs}
 		text.set('style', formatStyle(style))
@@ -224,9 +224,9 @@ class ScaleGen(inkex.Effect):
 
 		if label==True:
 			self.addLabel(n , x2, y2, grpLabel, fontsize)
-			line_attribs = {'style' : formatStyle(line_style),
-							inkex.addNS('label','inkscape') : 'name',
-							'd' : 'M '+x1+','+y1+' L '+x2+','+y2}
+		line_attribs = {'style' : formatStyle(line_style),
+						inkex.addNS('label','inkscape') : 'name',
+						'd' : 'M '+x1+','+y1+' L '+x2+','+y2}
 
 		line = inkex.etree.SubElement(grp, inkex.addNS('path','svg'), line_attribs )
 
@@ -311,7 +311,7 @@ class ScaleGen(inkex.Effect):
 						inkex.addNS('label','inkscape') : 'name',
 						'd' : 'M '+str(x1)+','+str(y1)+' L '+str(x2)+','+str(y2)}
 
-		line = inkex.etree.SubElement(grp, inkex.addNS('path','svg'), line_attribs )    	
+		line = inkex.etree.SubElement(grp, inkex.addNS('path','svg'), line_attribs )
 
 
 	def effect(self):
