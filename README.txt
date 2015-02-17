@@ -5,7 +5,7 @@ On Linux:   "~/.config/inkscape/extensions/"
 On Windows: "Inkscape\share\extensions\" (inside your programs folder)
 
 - COMMENT
-Tested on Inkscape 0.48
+Tested on Inkscape 0.91
 Contact me at brathering82@gmail.com
 
 - Known bugs
@@ -13,6 +13,10 @@ Contact me at brathering82@gmail.com
 	suffix doesn't support several special chars
 
 - Changelog
+17.02.2015
+	include changes made by Paul Rogalinski-Pinter
+	indentation cleanup - it's all tabs now
+	fixed line scale bug
 10.07.2014
 	updated the install packages with the changes made by Roger Jeurissen
 27.06.2010
