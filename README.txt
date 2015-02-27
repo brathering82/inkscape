@@ -13,6 +13,8 @@ Contact me at brathering82@gmail.com
 	suffix doesn't support several special chars
 
 - Changelog
+27.02.2015
+	added changes made by Tjeerd Schouten
 17.02.2015
 	include changes made by Paul Rogalinski-Pinter
 	indentation cleanup - it's all tabs now
