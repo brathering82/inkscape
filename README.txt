@@ -13,6 +13,17 @@ Contact me at brathering82@gmail.com
 	suffix doesn't support several special chars
 
 - Changelog
+05.03.2015
+	Added Label offset. This will move the labels side to side and up/down.
+	Added option to use the center of a bounding box as the drawing reference.
+	Added ability to set line stroke width.
+	Added option to add a perpendicular line.
+	Added mathematical expression to the number format. For example, to divide the label number by 2, use "n/2".
+	Added "Draw all labels" checkbox.
+	Added option to flip the label orientation.
+	Added support for "Draw every x lines" = 0 in order to remove lines.
+	Last label is not drawn if the circular count is 360 to prevent the last label overwriting the first.
+	Changed font size to Units instead of Pixels, so the scale looks the same if you change the units.
 17.02.2015
 	include changes made by Paul Rogalinski-Pinter
 	indentation cleanup - it's all tabs now
