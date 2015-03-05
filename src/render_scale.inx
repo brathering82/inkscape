@@ -1,76 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <inkscape-extension ns="http://www.inkscape.org/namespace/inkscape/extension">
-  <_name>Scale Generator</_name>
-  <id>org.inkscape.render.scale</id>
+  <_name>Scale</_name>
+  <id>org.inkscape.render.render_scale</id>
   <dependency type="executable" location="extensions">inkex.py</dependency>
   <dependency type="executable" location="extensions">render_scale.py</dependency>
   <param name="tab" type="notebook">
-	<page name="global" _gui-text="Global Options">
-	  <param name="desc_global" type="description">Generates scales</param>
-	  <param name="desc_global" type="description">*********************************</param>
-	  <param name="desc_global" type="description">Global parameters</param>
-	  <param name="scalefrom" type="int" _gui-text="Scale from:" min="-32000" max="32000">0.0</param>
-	  <param name="scaleto" type="int" _gui-text="Scale to:" min="-32000" max="32000">40.0</param>
-	  <param name="reverse" type="boolean" _gui-text="Reverse order:">false</param>
-	  <param name="type" type="optiongroup" _gui-text="Type">
-  		<_option value="line">Line</_option>
-	        <_option value="rad">Circular</_option>
+  
+	<page name="global" _gui-text="Shape">
+	  <param name="" type="description" appearance="header">Global</param>
+	  <param name="type" type="optiongroup" indent="1" _gui-text="Type:">
+  		<_option value="straight">Straight</_option>
+	    <_option value="circular">Circular</_option>
 	  </param>
-	  <param name="scaleheight" type="float" _gui-text="Scale Height (unit):" min="1" max="32000">5.0</param>
-	</page>
-	<page name="line" _gui-text="Line">
-	  <param name="desc_unit" type="description">Line specific</param>
-	  <param name="rotate" type="enum" _gui-text="Rotate:">
-		<item value="0">0°</item>
-		<item value="90">90°</item>
+	  
+	  <param name="unit" type="enum" indent="1"  _gui-text="Unit:">
+		<_item value="mm">mm</_item>
+		<_item value="cm">cm</_item>
+		<_item value="in">inch</_item>
+		<_item value="px">pixel</_item>
+		<_item value="pt">point</_item>
 	  </param>
-	  <param name="desc_unit" type="description">Use the unit pixel with your resolution for custom units</param>
-	  <param name="scaleres" type="float" _gui-text="Scale resolution (units per marker):" min="0.00001" max="99999.9000">1.00000</param>
+	  <param name="useref" type="boolean" indent="1" _gui-text="Origin from bounding box center">false</param>
+	  <param name="insidetf" type="boolean" indent="1" _gui-text="Swap inside out">false</param>
+	  
+	  <param name="" type="description" appearance="header">Straight</param>
+	  <param name="rotate" type="optiongroup" indent="1" _gui-text="Orientation:">
+		<_option value="0">Vertical</_option>
+		<_option value="90">Horizontal</_option>
+	  </param>	
+	  
+	  <param name="" type="description" appearance="header">Circular</param>
+	  <param name="radius" type="float" indent="1" _gui-text="Radius (units):" min="0.000000001" max="32000">50.0</param>
+	  <param name="desc_unit" type="description" indent="1">0 deg is at top. Positive values are clockwise.</param>
+	  <param name="scaleradbegin" type="float" indent="1" _gui-text="Start (deg):" min="-360.0" max="360.0">0</param>
+	  <param name="scaleradcount" type="float" indent="1" _gui-text="Count (deg):" min="-360.0" max="360.0">90</param>
+	  <param name="radmark" type="boolean" indent="1" _gui-text="Mark origin">true</param>
+	</page>	
+
+	
+	<page name="labelopt" _gui-text="Labels">
+	
+	  <param name="drawalllabels" type="boolean" _gui-text="Draw all labels">true</param>
+	  
+	  <param name="" type="description" appearance="header">Numbers</param>
+	  <param name="scalefrom" type="int" indent="1" _gui-text="Number from:" min="-32000" max="32000">0.0</param>
+	  <param name="scaleto" type="int" indent="1" _gui-text="Number to:" min="-32000" max="32000">40.0</param>
+	  <param name="mathexpression" type="string" indent="1" _gui-text="Math expression (number = 'n'):"></param>
+	  <param name="reverse" type="boolean" indent="1" _gui-text="Reverse order">false</param>
+	  
+	  <param name="" type="description" appearance="header">Format</param>
+	  <param name="fontsize" type="float" indent="1" _gui-text="Fontsize (units):" min="1" max="32000">3</param>
+	  <param name="suffix" type="string" indent="1" _gui-text="Label suffix:"></param>
+	  <param name="ishorizontal" type="boolean" indent="1" _gui-text="Horizontal labels (circular only)">false</param>
+	  <param name="fliplabel" type="boolean" indent="1" _gui-text="Flip orientation">false</param>
+	  
+	  <param name="" type="description" appearance="header">Offset (relative to label orientation):</param>
+	  <param name="labeloffseth" type="float" indent="1" _gui-text="Horizontal (units):" min="-32000" max="32000">0</param>
+	  <param name="labeloffsetv" type="float" indent="1" _gui-text="Vertical (units):" min="-32000" max="32000">0</param>
 	</page>
-	<page name="rad" _gui-text="Circular">
-	  <param name="desc_unit" type="description">Circular specific</param>
-	  <param name="scalerad" type="float" _gui-text="Radius (units):" min="0.000000001" max="32000">50.0</param>
-	  <param name="desc_unit" type="description">in degree, 0 deg is bottom, positive values are counterclockwise</param>
-	  <param name="scaleradbegin" type="float" _gui-text="Start (deg):" min="-360.0" max="360.0">240</param>
-	  <param name="scaleradcount" type="float" _gui-text="Count (deg):" min="-360.0" max="360.0">-120</param>
-	  <param name="desc_unit" type="description">it's hard to position the label afterwards. So use this:</param>
-	  <param name="labeldist" type="float" _gui-text="Label offset (unit):" min="-9999.9" max="9999.9">-4.8</param>
-	  <param name="radmark" type="boolean" _gui-text="Mark the origin?">true</param>
-  	  <param name="insidetf" type="boolean" _gui-text="inside scale?">true</param>
-  	  <param name="isdangle" type="boolean" _gui-text="dangling labels?">false</param>
+	
+	<page name="lineopt" _gui-text="Lines">
+	
+	  <param name="" type="description" appearance="header">All lines</param>
+	  <param name="units_per_line" type="float" indent="1" _gui-text="Units per line (straight only):" min="0.00001" max="99999.9000">1.00000</param>
+	  
+	  <param name="" type="description" appearance="header">Perpendicular line</param>
+	  <param name="perpline" type="boolean" indent="1" _gui-text="Draw perpendicular line">false</param>
+	  <param name="perplinestrokewidth" type="float" indent="1" _gui-text="Stroke width (units):" min="0.001" max="32000">0.2</param>
+	  <param name="perplineoffset" type="float" indent="1" _gui-text="Offset (units):" min="-32000" max="32000">0</param>
+	  
+	  <param name="" type="description" appearance="header">Label line</param>
+	  <param name="labellinelength" type="float" indent="1" _gui-text="Length (units):" min="1" max="32000">5.0</param>
+	  <param name="labellinestrokewidth" type="float" indent="1" _gui-text="Stroke width (units):" min="0.001" max="32000">0.4</param>
+	  <param name="mark0" type="int" indent="1" _gui-text="Draw every x lines (label number based on this):" min="0" max="32000">10</param>
+	  
+	  <param name="" type="description" appearance="header">Long line</param>
+	  <param name="mark1wid" type="int" indent="1" _gui-text="Length (percentage of label line length):" min="0" max="200">85</param>
+	  <param name="longlinestrokewidth" type="float" indent="1" _gui-text="Stroke width (units):" min="0.001" max="32000">0.2</param>
+	  <param name="mark1" type="int" indent="1" _gui-text="Draw every x lines:" min="0" max="32000">5</param>
+	  
+	  <param name="" type="description" appearance="header">Short line</param>
+	  <param name="mark2wid" type="int" indent="1" _gui-text="Length (percentage of label line length):" min="0" max="200">60</param>
+	  <param name="shortlinestrokewidth" type="float" indent="1" _gui-text="Stroke width (units):" min="0.001" max="32000">0.2</param>
+	  <param name="mark2" type="int" indent="1" _gui-text="Draw every x lines:" min="0" max="32000">1</param>
 	</page>
-	<page name="unitopt" _gui-text="Unit">
-	  <param name="desc_unit" type="description">Units</param>
-	  <param name="desc_unit" type="description">Baseunit is pixel (1mm = 3.5433070866px)</param>
-	  <param name="unit" type="optiongroup" _gui-text="Unit">
-		<_option value="mm">mm</_option>
-		<_option value="cm">cm</_option>
-		<_option value="in">inch</_option>
-		<_option value="px">pixel</_option>
-		<_option value="pt">point</_option>
-	  </param>
-	</page>
-	<page name="labelopt" _gui-text="Label">
-	  <param name="desc_labels" type="description">Labels</param>
-	  <param name="fontsize" type="int" _gui-text="Fontsize (pixel):" min="1" max="32000">10</param>
-	  <param name="desc_global" type="description">Suffix currently doesn't support several special characters</param>
-	  <param name="suffix" type="string" _gui-text="Label suffix:">mV</param>
-	</page>
-	<page name="markopt" _gui-text="Marker">
-	  <param name="desc_markers" type="description">Markers</param>
-	  <param name="mark0" type="int" _gui-text="Div of labeled marker :" min="1" max="32000">10</param>
-	  <param name="mark1" type="int" _gui-text="Div of bold marker:" min="1" max="32000">5</param>
-	  <param name="mark2" type="int" _gui-text="Div of default marker:" min="1" max="32000">1</param>
-	  <param name="desc_unit" type="description">Marker width in relation to labeled marker</param>
-	  <param name="mark1wid" type="int" _gui-text="Width of bold marker (%):" min="0" max="200">85</param>
-	  <param name="mark2wid" type="int" _gui-text="Width of default marker (%):" min="0" max="200">60</param>
-	</page>
+	
   </param>
 
   <effect>
     <object-type>all</object-type>
     <effects-menu>
-      <submenu _name="Render"/>
+      <submenu _name="Render"/> 
     </effects-menu>
   </effect>
   <script>
