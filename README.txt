@@ -6,7 +6,8 @@ On Windows: "Inkscape\share\extensions\" (inside your programs folder)
 
 - COMMENT
 Tested on Inkscape 0.91
-Contact me at brathering82@gmail.com
+Author: Sascha Poczihoski
+Contact me at s.pocz@posteo.de
 
 - Known bugs
 	ui float precision is limited to 1
